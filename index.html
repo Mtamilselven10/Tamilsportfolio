@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tamilselvan M — Creative Developer, Designer & Video Editor</title>
+  <meta name="description" content="Personal portfolio of Tamilselvan M. B.Tech Artificial Intelligence and Data Science student at RVCE, creative developer, UI/UX designer, and video editor.">
+  <meta name="keywords" content="Tamilselvan M, Creative Developer, UI/UX Designer, Video Editor, AI and Data Science, RVCE">
+  <meta name="author" content="Tamilselvan M">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tamilselvan M — Design. Develop. Create.">
+  <meta property="og:description" content="Cinematic portfolio of Tamilselvan M — merging code, visual design, and motion storytelling.">
+
+  <!-- Fonts: Anton (Bold Condensed Sans fallback for Conde Sans), Playfair Display (Serif), Syne & Inter (Editorial Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Syne:wght@500;700;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            burgundy: {
+              DEFAULT: '#6D001A',
+              deep: '#470013',
+              glow: '#8E0024',
+              soft: '#2D000B'
+            },
+            ivory: '#F5F1E9',
+            darkSurface: '#080808',
+            mutedGray: '#A8A8A8',
+            borderDark: '#1E1E1E'
+          },
+          fontFamily: {
+            display: ['Anton', 'Impact', 'sans-serif'],
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            syne: ['Syne', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace', 'sans-serif']
+          },
+          letterSpacing: {
+            tighter: '-0.05em',
+            condensed: '-0.03em',
+            widestExtra: '0.25em'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- External Libraries: Three.js, GSAP, ScrollTrigger, Lucide Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+  
+
+  
+</head>
+
+<body class="bg-black text-white antialiased relative selection:bg-burgundy selection:text-white">
+  <!-- Film Grain Overlay -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- Custom Kinetic Cursor (Desktop) -->
+  <div class="custom-cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="custom-cursor-circle" id="cursor-circle" aria-hidden="true"></div>
+
+  <!-- Background Three.js Canvas -->
+  <canvas id="global-3d-canvas" aria-hidden="true"></canvas>
+
+  <!-- =========================================================================
+       SIGNATURE CINEMATIC 3D SPLASH SCREEN (PHASES 1 - 5)
+       Features PHOTO 1: 1000194893.jpg (Front-facing sunglasses pose)
+       ========================================================================= -->
+  <div id="splash-screen" class="fixed inset-0 z-[10005] bg-black flex flex-col justify-between p-6 sm:p-10 perspective-container overflow-hidden select-none">
+    
+    <!-- Ambient Depth Background -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(109,0,26,0.4)_0%,rgba(0,0,0,1)_80%)] pointer-events-none"></div>
+    <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none"></div>
+
+    <!-- Splash Top Bar: Brand Identifier & Skip Button -->
+    <div class="relative z-20 flex items-center justify-between w-full max-w-7xl mx-auto">
+      <div id="splash-top-brand" class="opacity-0 flex items-center gap-3">
+        <span class="w-2.5 h-2.5 bg-burgundy rounded-full animate-ping"></span>
+        <span class="text-xs font-mono uppercase tracking-widest text-neutral-300 font-bold">
+          TAMILSELVAN M. / PORTFOLIO 2026
+        </span>
+      </div>
+
+      <button id="splash-skip-btn" onclick="dismissSplashImmediately()" class="interactive-link px-4 py-1.5 bg-neutral-900/80 hover:bg-burgundy text-white border border-neutral-800 hover:border-burgundy font-mono text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 flex items-center gap-2 group backdrop-blur-md">
+        <span>Skip Intro</span>
+        <i data-lucide="fast-forward" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+      </button>
+    </div>
+
+    <!-- Center Stage: 3D Perspective Card with Cutout Photo 1 -->
+    <div class="relative z-20 my-auto flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full py-6">
+      
+      <!-- Phase 1 Animated Line & Philosophy Reveal -->
+      <div class="w-full flex flex-col items-center justify-center mb-4">
+        <!-- Thin Animated Line -->
+        <div id="splash-draw-line" class="h-[1.5px] bg-gradient-to-r from-transparent via-burgundy-glow to-transparent w-0 transition-all duration-700"></div>
+        
+        <div class="h-10 sm:h-12 flex items-center justify-center overflow-hidden mt-3">
+          <p id="splash-phase1-text" class="text-xs sm:text-sm font-mono tracking-widestExtra uppercase text-neutral-400 font-medium opacity-0 transform translate-y-4">
+            NOT JUST CODE.
+          </p>
+        </div>
+      </div>
+
+      <!-- Phase 2 & 3: 3D Interactive Photo Card (Front-facing 1000194893.jpg) -->
+      <div id="splash-3d-card" class="card-3d-wrapper relative w-64 sm:w-80 md:w-88 aspect-[3/4] my-2 opacity-0 transform scale-90">
+        
+        <!-- Orbital Rings -->
+        <div class="absolute -inset-4 sm:-inset-6 rounded-full border border-burgundy/40 animate-spin pointer-events-none" style="animation-duration: 22s;"></div>
+        <div class="absolute -inset-8 sm:-inset-10 rounded-full border border-dashed border-white/10 animate-spin pointer-events-none" style="animation-duration: 35s; animation-direction: reverse;"></div>
+
+        <!-- 3D Dimensional Background Layer -->
+        <div class="absolute inset-0 bg-gradient-to-b from-burgundy-deep/60 via-black to-neutral-950 rounded-2xl border border-burgundy/40 transform translate-z-[-20px] shadow-2xl"></div>
+
+        <!-- Photo 1 Cutout Container -->
+        <div class="relative w-full h-full rounded-2xl overflow-hidden p-2 flex items-end justify-center">
+          <img 
+            id="splash-photo-1"
+            src="assets/1000194893.png" 
+            alt="Tamilselvan M — Front Facing Portrait"
+            class="w-full h-full object-contain object-bottom portrait-glow transition-transform duration-500 hover:scale-105"
+            onerror="this.onerror=null; this.src='1000194893_2.jpg';"
+          />
+
+          <!-- Rim-light subtle gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 pointer-events-none"></div>
+
+          <!-- Interactive 3D floating badge -->
+          <div class="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between px-3 py-1.5 bg-black/75 backdrop-blur-md rounded-lg border border-burgundy/50 text-[10px] font-mono text-neutral-300">
+            <span class="text-white font-bold tracking-wider">RVCE // AI & DS</span>
+            <span class="text-burgundy-glow uppercase font-bold">2026 EDITION</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4: Staggered Name Reveal & Role Identification -->
+      <div class="mt-4 flex flex-col items-center">
+        <h1 id="splash-name" class="opacity-0 text-5xl sm:text-7xl md:text-8xl font-display uppercase tracking-tight text-white leading-none">
+          TAMILSELVAN <span class="text-burgundy">M.</span>
+        </h1>
+        <p id="splash-roles" class="opacity-0 text-xs sm:text-sm font-mono tracking-widest text-neutral-400 uppercase mt-2">
+          DEVELOPER <span class="text-burgundy">/</span> DESIGNER <span class="text-burgundy">/</span> VIDEO EDITOR
+        </p>
+      </div>
+
+      <!-- Enter Action Trigger -->
+      <div id="splash-enter-zone" class="mt-6 opacity-0 flex flex-col items-center">
+        <button onclick="dismissSplashImmediately()" class="interactive-link px-8 py-3 bg-burgundy hover:bg-burgundy-deep text-white font-mono text-xs uppercase tracking-widestExtra rounded transition-all duration-300 shadow-lg shadow-burgundy/40 flex items-center gap-3 group">
+          <span>ENTER PORTFOLIO</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+        </button>
+        <span class="text-[9px] font-mono text-neutral-500 uppercase tracking-widest mt-2 flex items-center gap-1.5">
+          <i data-lucide="mouse" class="w-3 h-3 text-burgundy"></i> Move cursor or tilt device to inspect 3D layers
+        </span>
+      </div>
+
+    </div>
+
+    <!-- Splash Bottom Status Bar -->
+    <div class="relative z-20 flex items-center justify-between w-full max-w-7xl mx-auto text-[10px] font-mono text-neutral-500 uppercase tracking-wider">
+      <span id="splash-progress-status">INITIALIZING SYSTEM...</span>
+      <span id="splash-percentage" class="text-burgundy-glow font-bold">0%</span>
+    </div>
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-[10002] pointer-events-none flex flex-col gap-2 transition-all"></div>
+
+  <!-- Case Study Modal -->
+  <div id="project-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md items-center justify-center p-4 sm:p-6 transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-[#0e0e0e] border border-burgundy/40 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 md:p-8 relative shadow-2xl text-white">
+      <button id="close-modal-btn" aria-label="Close details" class="absolute top-5 right-5 text-neutral-400 hover:text-white p-2 rounded-full hover:bg-neutral-800 transition-all">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div id="modal-content-slot">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Showcase Modal -->
+  <div id="video-preview-modal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-lg items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div class="relative w-full max-w-4xl bg-black border border-burgundy/50 rounded-xl overflow-hidden p-2">
+      <button id="close-video-modal" aria-label="Close video preview" class="absolute top-4 right-4 z-10 text-white bg-burgundy hover:bg-burgundy-deep p-2 rounded-full transition-all">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="aspect-video w-full bg-neutral-950 flex flex-col items-center justify-center text-center p-8">
+        <div class="w-16 h-16 rounded-full bg-burgundy/20 border border-burgundy flex items-center justify-center text-burgundy mb-4 animate-pulse">
+          <i data-lucide="clapperboard" class="w-8 h-8"></i>
+        </div>
+        <h3 id="video-modal-title" class="text-2xl font-display uppercase tracking-wider text-white">Showcase Preview</h3>
+        <p id="video-modal-desc" class="text-mutedGray text-sm mt-2 max-w-md">Cinematic color grading, montage pacing, and narrative transition reel.</p>
+        <span class="mt-4 px-4 py-1 bg-burgundy/30 border border-burgundy/50 text-[11px] uppercase tracking-widest text-burgundy-glow rounded-full">College Events &amp; Creative Reels</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Header Navigation -->
+  <header class="fixed top-0 left-0 w-full z-40 bg-black/75 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="site-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="group flex items-center gap-3 interactive-link" aria-label="Tamilselvan M Homepage">
+        <div class="w-9 h-9 bg-burgundy flex items-center justify-center rounded-sm font-display text-white text-lg tracking-wider font-bold group-hover:bg-white group-hover:text-burgundy transition-all duration-300 shadow-sm">
+          T
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display tracking-widest text-base font-bold text-white group-hover:text-burgundy transition-colors">TAMILSELVAN M</span>
+          <span class="text-[9px] uppercase tracking-widestExtra text-mutedGray">AI &amp; DS • Creative Dev</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest" aria-label="Main Navigation">
+        <a href="#about" class="text-neutral-400 hover:text-white transition-colors interactive-link">About</a>
+        <a href="#skills" class="text-neutral-400 hover:text-white transition-colors interactive-link">Toolkit</a>
+        <a href="#projects" class="text-neutral-400 hover:text-white transition-colors interactive-link">Selected Work</a>
+        <a href="#creative" class="text-neutral-400 hover:text-white transition-colors interactive-link">Creative Gallery</a>
+        <a href="#timeline" class="text-neutral-400 hover:text-white transition-colors interactive-link">Milestones</a>
+        <a href="tel:+916382965064" class="text-white bg-burgundy hover:bg-burgundy-deep px-5 py-2.5 rounded-sm transition-all duration-300 tracking-widest border border-burgundy hover:border-burgundy-glow interactive-link">
+          Let's Talk
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-toggle" aria-label="Open Navigation Menu" class="md:hidden text-white p-2 focus:outline-none interactive-link">
+        <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Overlay -->
+    <div id="mobile-drawer" class="fixed inset-x-0 top-[65px] bg-[#0A0A0A] border-b border-burgundy/30 p-6 flex flex-col gap-4 text-sm font-bold uppercase tracking-widest md:hidden hidden transition-all">
+      <a href="#about" class="mobile-nav-link text-neutral-300 hover:text-burgundy py-2 border-b border-neutral-800">01. About Me</a>
+      <a href="#skills" class="mobile-nav-link text-neutral-300 hover:text-burgundy py-2 border-b border-neutral-800">02. Creative Toolkit</a>
+      <a href="#projects" class="mobile-nav-link text-neutral-300 hover:text-burgundy py-2 border-b border-neutral-800">03. Selected Work</a>
+      <a href="#creative" class="mobile-nav-link text-neutral-300 hover:text-burgundy py-2 border-b border-neutral-800">04. Video &amp; Motion</a>
+      <a href="#timeline" class="mobile-nav-link text-neutral-300 hover:text-burgundy py-2 border-b border-neutral-800">05. Academic Journey</a>
+      <a href="#contact" class="mobile-nav-link text-burgundy font-extrabold py-2 mt-2">06. Connect With Me &rarr;</a>
+    </div>
+  </header>
+
+  <main id="main-content" class="relative z-10">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-between pt-28 pb-12 px-6 overflow-hidden border-b border-neutral-900 bg-transparent">
+      
+      <!-- Top Metadata Header -->
+      <div class="relative z-10 max-w-7xl mx-auto w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono uppercase tracking-widest text-mutedGray">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Status: Open to Internships &amp; Projects</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span>RVCE • Tamil Nadu, India</span>
+          <span class="text-neutral-700">|</span>
+          <span class="text-burgundy font-bold">B.Tech AI&DS; Data Science</span>
+        </div>
+      </div>
+
+      <!-- Main Editorial Headline (DESIGN, DEVELOP, BUILD, CREATE) -->
+      <div class="relative z-10 max-w-7xl mx-auto w-full my-auto py-12">
+        <div class="flex flex-col items-start select-none">
+          
+          <div class="mb-4 sm:mb-6 inline-flex items-center gap-2 px-3 py-1 bg-burgundy/20 border border-burgundy/40 rounded-full">
+            <span class="text-[11px] font-mono tracking-widest text-white uppercase">Portfolio 2026 Edition</span>
+            <span class="w-1 h-1 rounded-full bg-burgundy"></span>
+            <span class="text-[11px] font-mono tracking-widest text-neutral-400">Creative Technologist</span>
+          </div>
+
+          <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] font-display uppercase tracking-tight leading-[0.92] text-white flex flex-col gap-0.5">
+            <span class="block transform transition-transform hover:translate-x-2 duration-300">I DESIGN.</span>
+            <span class="block text-outline-burgundy hover:text-burgundy transition-all duration-300">I DEVELOP.</span>
+            <span class="block transform transition-transform hover:translate-x-2 duration-300">I BUILD.</span>
+            <span class="block text-white hover:text-burgundy transition-colors duration-300">
+              I CREATE<span class="text-burgundy">.</span>
+            </span>
+          </h1>
+
+          <!-- Supporting Text & CTAs with generous clearance preventing overlap -->
+          <div class="mt-10 sm:mt-12 pt-4 grid grid-cols-1 md:grid-cols-12 gap-8 items-end w-full">
+            <div class="md:col-span-7 space-y-4">
+              <p class="text-base sm:text-xl md:text-2xl font-light text-neutral-300 leading-relaxed font-sans max-w-2xl">
+                I build digital experiences where <span class="font-semibold text-white">technology</span>, 
+                <span class="font-serif italic font-normal text-burgundy-glow">design</span>, and 
+                <span class="font-semibold text-white">storytelling meet</span>.
+              </p>
+              <div class="flex flex-wrap gap-2 text-xs font-mono tracking-wider text-mutedGray">
+                <span class="px-2.5 py-1 bg-neutral-900 border border-neutral-800 rounded">Frontend Engineering</span>
+                <span class="px-2.5 py-1 bg-neutral-900 border border-neutral-800 rounded">UI/UX Craft</span>
+                <span class="px-2.5 py-1 bg-neutral-900 border border-neutral-800 rounded">Video Editing</span>
+                <span class="px-2.5 py-1 bg-neutral-900 border border-neutral-800 rounded">AI &amp; DS Foundations</span>
+              </div>
+            </div>
+
+            <div class="md:col-span-5 flex flex-wrap sm:flex-nowrap gap-4 justify-start md:justify-end">
+              <a href="#projects" class="interactive-link px-7 py-3.5 bg-burgundy hover:bg-burgundy-deep text-white font-mono text-xs uppercase tracking-widestExtra rounded transition-all duration-300 flex items-center gap-2 group shadow-lg shadow-burgundy/20">
+                <span>Explore My Work</span>
+                <i data-lucide="arrow-down-right" class="w-4 h-4 group-hover:rotate-45 transition-transform duration-300"></i>
+              </a>
+              <a href="#contact" class="interactive-link px-7 py-3.5 bg-transparent hover:bg-white hover:text-black border border-white/20 text-white font-mono text-xs uppercase tracking-widestExtra rounded transition-all duration-300 flex items-center gap-2">
+                <span>Let's Connect</span>
+                <i data-lucide="message-square" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Hero Bottom Bar -->
+      <div class="relative z-10 max-w-7xl mx-auto w-full flex justify-between items-center text-xs font-mono text-mutedGray pt-4 border-t border-neutral-900">
+        <div class="flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-burgundy animate-pulse"></i>
+          <span>Interactive 3D universe responds to your scroll &amp; pointer</span>
+        </div>
+        <a href="#about" class="interactive-link flex items-center gap-2 hover:text-white transition-colors">
+          <span>Scroll to Discover</span>
+          <i data-lucide="chevrons-down" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- MARQUEE A -->
+    <div class="w-full bg-burgundy py-3.5 overflow-hidden border-y border-burgundy-deep select-none relative z-10">
+      <div class="marquee-container">
+        <div class="marquee-content font-display text-2xl md:text-3xl uppercase tracking-widest text-white">
+          <span>DESIGN — DEVELOP — CREATE — REPEAT</span>
+          <span class="text-black/60">•</span>
+          <span>TAMILSELVAN M</span>
+          <span class="text-black/60">•</span>
+          <span>ARTIFICIAL INTELLIGENCE &amp; DATA SCIENCE</span>
+          <span class="text-black/60">•</span>
+          <span>FRONTEND &amp; FULL-STACK EXPLORATION</span>
+          <span class="text-black/60">•</span>
+        </div>
+        <div class="marquee-content font-display text-2xl md:text-3xl uppercase tracking-widest text-white" aria-hidden="true">
+          <span>DESIGN — DEVELOP — CREATE — REPEAT</span>
+          <span class="text-black/60">•</span>
+          <span>TAMILSELVAN M</span>
+          <span class="text-black/60">•</span>
+          <span>ARTIFICIAL INTELLIGENCE &amp; DATA SCIENCE</span>
+          <span class="text-black/60">•</span>
+          <span>FRONTEND &amp; FULL-STACK EXPLORATION</span>
+          <span class="text-black/60">•</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         ABOUT ME SECTION — Features PHOTO 2: 1000194892.jpg (Side-facing pose)
+         ========================================================================= -->
+    <section id="about" class="py-24 sm:py-32 px-6 bg-black/85 backdrop-blur-[2px] relative z-10 border-b border-neutral-900">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="flex items-center gap-3 mb-12">
+          <span class="text-burgundy font-mono text-xs uppercase tracking-widestExtra">01 // IDENTITY</span>
+          <div class="h-[1px] w-16 bg-burgundy/50"></div>
+          <h2 class="text-sm font-mono uppercase tracking-widest text-mutedGray">A LITTLE ABOUT ME</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          <!-- Column 1: Cutout Photo 2 in 3D Dimensional Frame -->
+          <div class="lg:col-span-5 flex flex-col gap-6">
+            <div id="about-card-3d" class="card-3d-wrapper relative rounded-xl overflow-hidden border border-neutral-800 bg-[#0e0e0e] shadow-2xl transition-all duration-500 hover:border-burgundy/60 group">
+              
+              <div class="aspect-[4/5] w-full relative overflow-hidden bg-neutral-950 flex flex-col justify-end p-6 sm:p-8">
+                <!-- Burgundy rim ambient glow -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+                <div class="absolute -right-16 -top-16 w-56 h-56 bg-burgundy/25 rounded-full blur-3xl pointer-events-none"></div>
+
+                <!-- PHOTO 2: Side-facing pose with hand across chest -->
+                <img 
+                  id="about-photo-2"
+                  src="assets/1000194892.png" 
+                  alt="Tamilselvan M — Side Facing Portrait"
+                  class="absolute inset-0 w-full h-full object-contain object-bottom about-portrait-glow transform transition-transform duration-700 group-hover:scale-105"
+                  onerror="this.onerror=null; this.src='1000194892_2.png';"
+                />
+
+                <!-- Top Badge -->
+                <div class="absolute top-5 left-4 z-20">
+                  <span class="px-3 py-1 bg-black/70 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-mono tracking-widest uppercase text-white flex items-center gap-2">
+                    <span class="w-1.7 h-1.7 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span>CREATIVE TECHNOLOGIST</span>
+                  </span>
+                </div>
+
+                <!-- Bio Overlay -->
+                <div class="relative z-20 bg-black/85 backdrop-blur-md p-5 border border-white/10 rounded-lg">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="font-display text-2xl text-white tracking-wide">TAMILSELVAN M</p>
+                      <p class="text-xs font-mono text-burgundy-glow mt-0.5">B.Tech AI &amp; Data Science Undergraduate</p>
+                    </div>
+                    <span class="w-8 h-8 rounded-full bg-burgundy/20 border border-burgundy flex items-center justify-center text-white text-xs font-display font-bold">
+                      TM
+                    </span>
+                  </div>
+                  <p class="text-[11px] text-neutral-400 mt-2 font-sans">Renganayagi Varadaraj College of Engineering (RVCE)</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fast Facts Grid -->
+            <div class="p-6 bg-[#0a0a0a] border border-neutral-800 rounded-lg flex flex-col gap-3">
+              <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">Core Disciplines</span>
+              <div class="grid grid-cols-2 gap-4 pt-2">
+                <div>
+                  <p class="text-xs text-mutedGray">Academic Major</p>
+                  <p class="text-sm font-semibold text-white">AI &amp; Data Science</p>
+                </div>
+                <div>
+                  <p class="text-xs text-mutedGray">Engineering Focus</p>
+                  <p class="text-sm font-semibold text-white">Modern Web / Full-Stack</p>
+                </div>
+                <div>
+                  <p class="text-xs text-mutedGray">Visual Craft</p>
+                  <p class="text-sm font-semibold text-white">UI/UX &amp; Wireframing</p>
+                </div>
+                <div>
+                  <p class="text-xs text-mutedGray">Storytelling</p>
+                  <p class="text-sm font-semibold text-white">Video Post-Production</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Exact Requested Biography -->
+          <div class="lg:col-span-7 flex flex-col gap-8">
+            <h3 class="text-3xl sm:text-5xl font-display uppercase tracking-tight text-white leading-tight">
+              THE PERSON BEHIND <span class="font-serif italic lowercase font-normal text-burgundy">the pixels.</span>
+            </h3>
+
+            <div class="space-y-6 text-base sm:text-lg text-neutral-300 font-light leading-relaxed">
+              <p>
+                I'm <strong class="text-white font-medium">Tamilselvan M</strong>, a B.Tech Artificial Intelligence and Data Science student at 
+                <strong class="text-white font-medium">Renganayagi Varadaraj College of Engineering (RVCE)</strong> interested in web development, UI/UX design, artificial intelligence, and video editing.
+              </p>
+              <p>
+                I enjoy combining <span class="text-white font-medium">code, visual design, and motion</span> to create digital experiences that are functional, expressive, and memorable.
+              </p>
+              <p>
+                Whether designing clean wireframes in Figma, structuring scalable document stores in MongoDB, writing backend routes in Python Flask, or directing high-energy video montages in DaVinci Resolve and Premiere Pro, I treat every project with an eye for rhythm, balance, and human clarity.
+              </p>
+            </div>
+
+            <!-- Pillars Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-neutral-800">
+              <div class="p-4 bg-neutral-950 border border-neutral-900 rounded">
+                <span class="text-burgundy font-mono text-xs">01</span>
+                <h4 class="font-display uppercase text-lg text-white mt-1">Engineer</h4>
+                <p class="text-xs text-neutral-400 mt-2 font-sans">Developing clean web code using modern JavaScript, Python Flask, and structured databases.</p>
+              </div>
+
+              <div class="p-4 bg-neutral-950 border border-neutral-900 rounded">
+                <span class="text-burgundy font-mono text-xs">02</span>
+                <h4 class="font-display uppercase text-lg text-white mt-1">Designer</h4>
+                <p class="text-xs text-neutral-400 mt-2 font-sans">Figma prototyping focused on accessible layout, strong typographic scale, and seamless usability.</p>
+              </div>
+
+              <div class="p-4 bg-neutral-950 border border-neutral-900 rounded">
+                <span class="text-burgundy font-mono text-xs">03</span>
+                <h4 class="font-display uppercase text-lg text-white mt-1">Creator</h4>
+                <p class="text-xs text-neutral-400 mt-2 font-sans">Crafting dynamic college event videos, cinematic montages, color grading, and social content.</p>
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <a href="#projects" class="interactive-link inline-flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-burgundy hover:text-white transition-colors">
+                <span>Explore Featured Projects</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="py-24 sm:py-32 px-6 bg-[#080808]/85 backdrop-blur-[2px] border-b border-neutral-900 relative z-10">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-burgundy font-mono text-xs uppercase tracking-widestExtra">02 // ARSENAL</span>
+              <div class="h-[1px] w-16 bg-burgundy/50"></div>
+            </div>
+            <h2 class="text-4xl sm:text-6xl font-display uppercase tracking-tight text-white">
+              MY CREATIVE <span class="text-burgundy">TOOLKIT.</span>
+            </h2>
+          </div>
+          <p class="text-mutedGray text-sm font-sans max-w-md">
+            Verified technical tools, design applications, and production suites I actively use for coursework, prototypes, and freelance creative work.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Category 1: Development -->
+          <div class="editorial-card rounded-lg p-8 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-burgundy/20 border border-burgundy/40 rounded flex items-center justify-center text-burgundy mb-6">
+                <i data-lucide="code-2" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-2xl font-display uppercase tracking-wider text-white">Development</h3>
+              <p class="text-xs text-mutedGray font-mono mt-1 mb-6">Frontend, Backend &amp; Data Store</p>
+              
+              <ul class="space-y-3 font-sans text-sm text-neutral-300">
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">HTML5 &amp; CSS3</span>
+                  <span class="text-xs font-mono text-neutral-400">Semantic / Modern</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">JavaScript (ES6+)</span>
+                  <span class="text-xs font-mono text-neutral-400">DOM / Async / APIs</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Tailwind CSS</span>
+                  <span class="text-xs font-mono text-neutral-400">Utility Architecture</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Bootstrap</span>
+                  <span class="text-xs font-mono text-neutral-400">Rapid Grid &amp; UI</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Python</span>
+                  <span class="text-xs font-mono text-neutral-400">AI / DS / Scripting</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Flask</span>
+                  <span class="text-xs font-mono text-neutral-400">Lightweight Backend</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">MongoDB</span>
+                  <span class="text-xs font-mono text-neutral-400">NoSQL Document Store</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="font-medium text-white">REST APIs</span>
+                  <span class="text-xs font-mono text-neutral-400">Endpoints &amp; JSON</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-800">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">Targeting: Responsive Web Apps</span>
+            </div>
+          </div>
+
+          <!-- Category 2: UI / UX Design -->
+          <div class="editorial-card rounded-lg p-8 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-burgundy/20 border border-burgundy/40 rounded flex items-center justify-center text-burgundy mb-6">
+                <i data-lucide="layout" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-2xl font-display uppercase tracking-wider text-white">UI/UX Design</h3>
+              <p class="text-xs text-mutedGray font-mono mt-1 mb-6">Visual Architecture &amp; Prototypes</p>
+              
+              <ul class="space-y-3 font-sans text-sm text-neutral-300">
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Figma</span>
+                  <span class="text-xs font-mono text-neutral-400">Component Design</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Wireframing</span>
+                  <span class="text-xs font-mono text-neutral-400">Low &amp; High Fidelity</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Interactive Prototyping</span>
+                  <span class="text-xs font-mono text-neutral-400">User Flow Testing</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Design Systems</span>
+                  <span class="text-xs font-mono text-neutral-400">Typography &amp; Color</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">UX Principles</span>
+                  <span class="text-xs font-mono text-neutral-400">Clarity &amp; Hierarchy</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="font-medium text-white">Responsive Layouts</span>
+                  <span class="text-xs font-mono text-neutral-400">Mobile-First</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-800">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">Targeting: Human-Centered Interfaces</span>
+            </div>
+          </div>
+
+          <!-- Category 3: Creative Video & Post-Production -->
+          <div class="editorial-card rounded-lg p-8 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-burgundy/20 border border-burgundy/40 rounded flex items-center justify-center text-burgundy mb-6">
+                <i data-lucide="film" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-2xl font-display uppercase tracking-wider text-white">Video &amp; Creative</h3>
+              <p class="text-xs text-mutedGray font-mono mt-1 mb-6">Motion, Grading &amp; Storytelling</p>
+              
+              <ul class="space-y-3 font-sans text-sm text-neutral-300">
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">DaVinci Resolve</span>
+                  <span class="text-xs font-mono text-neutral-400">Color &amp; Editing</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Adobe Premiere Pro</span>
+                  <span class="text-xs font-mono text-neutral-400">Timeline Assembly</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">CapCut</span>
+                  <span class="text-xs font-mono text-neutral-400">Pacing &amp; Short-Form</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">Adobe Lightroom</span>
+                  <span class="text-xs font-mono text-neutral-400">Color Retouch</span>
+                </li>
+                <li class="flex items-center justify-between pb-2 border-b border-neutral-800">
+                  <span class="font-medium text-white">PicsArt</span>
+                  <span class="text-xs font-mono text-neutral-400">Poster &amp; Art</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="font-medium text-white">Visual Montages</span>
+                  <span class="text-xs font-mono text-neutral-400">College Event Cuts</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-800">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">Targeting: Cinematic Visual Impact</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MARQUEE B -->
+    <div class="w-full bg-black/90 py-4 overflow-hidden border-y border-neutral-800 select-none relative z-10">
+      <div class="marquee-container">
+        <div class="marquee-content-reverse font-serif italic text-2xl md:text-3xl text-neutral-400">
+          <span>CODE WITH PURPOSE</span>
+          <span class="text-burgundy font-sans not-italic font-bold">/</span>
+          <span class="text-white font-sans not-italic font-bold tracking-wider">DESIGN WITH FEELING</span>
+          <span class="text-burgundy font-sans not-italic font-bold">/</span>
+          <span>BUILD WITH INTENTION</span>
+          <span class="text-burgundy font-sans not-italic font-bold">/</span>
+          <span class="text-burgundy font-display not-italic">TAMILSELVAN M</span>
+          <span class="text-burgundy font-sans not-italic font-bold">/</span>
+        </div>
+        <div class="marquee-content-reverse font-serif italic text-2xl md:text-3xl text-neutral-400" aria-hidden="true">
+          <span>CODE WITH PURPOSE</span>
+          <span class="text-burgundy font-sans not-italic font-bold">/</span>
+          <span class="text-white font-sans not-italic font-bold tracking-wider">DESIGN WITH FEELING</span>
+          <span class="text-burgundy font-sans not-italic font-bold">/</span>
+          <span>BUILD WITH INTENTION</span>
+          <span class="text-burgundy font-sans not-italic font-bold">/</span>
+          <span class="text-burgundy font-display not-italic">TAMILSELVAN M</span>
+          <span class="text-burgundy font-sans not-italic font-bold">/</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="projects" class="py-24 sm:py-32 px-6 bg-black/85 backdrop-blur-[2px] relative z-10 border-b border-neutral-900">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-burgundy font-mono text-xs uppercase tracking-widestExtra">03 // CASE STUDIES</span>
+              <div class="h-[1px] w-16 bg-burgundy/50"></div>
+            </div>
+            <h2 class="text-4xl sm:text-7xl font-display uppercase tracking-tight text-white">
+              SELECTED <span class="text-burgundy">WORK.</span>
+            </h2>
+          </div>
+          <div class="text-right">
+            <span class="font-mono text-xs text-mutedGray uppercase tracking-widest">
+              Real Academic Concepts &amp; Applications
+            </span>
+          </div>
+        </div>
+
+        <div class="space-y-16">
+
+          <!-- PROJECT 1 -->
+          <article class="editorial-card rounded-xl p-8 lg:p-12 relative overflow-hidden group">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div class="lg:col-span-7 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-3 mb-4">
+                    <span class="text-xs font-mono text-burgundy font-bold">PROJECT // 01</span>
+                    <span class="text-neutral-600">•</span>
+                    <span class="text-xs font-mono uppercase tracking-wider text-mutedGray">Academic Concept</span>
+                  </div>
+                  
+                  <h3 class="text-3xl sm:text-4xl lg:text-5xl font-display uppercase text-white tracking-wide group-hover:text-burgundy transition-colors duration-300">
+                    Students Academic Record Management System
+                  </h3>
+
+                  <p class="text-neutral-300 text-base font-light mt-4 leading-relaxed font-sans">
+                    A student-focused academic record management application concept engineered to streamline information flow between students, teaching staff, and departmental administrators. Designed to solve record discrepancies, track performance metrics, and reduce manual paperwork.
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mt-6">
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Workflow Architecture</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Role-Based Access</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Database Modeling</span>
+                  </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-neutral-800 flex flex-wrap items-center gap-4">
+                  <button onclick="openProjectModal('project-1')" class="interactive-link px-5 py-2.5 bg-burgundy hover:bg-burgundy-deep text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                    <span>View Case Study</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  </button>
+                  <a href="https://github.com/Mtamilselven10" target="_blank" rel="noopener noreferrer" class="interactive-link px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                    <span>Repository Placeholder</span>
+                  </a>
+                  <a href="https://TamilselvanM.pythonanywhere.com" target="_blank" rel="noopener noreferrer" class="live-demo-link" aria-label="Open live demo for Project 1" title="TamilselvanM.pythonanywhere.com">
+                    <i data-lucide="globe" class="w-3.5 h-3.5"></i><span>Live Demo</span>
+                  </a>
+                  <span class="text-[11px] font-mono text-neutral-500 italic">Academic Prototype</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 aspect-[4/3] bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-lg p-6 flex flex-col justify-between relative overflow-hidden group-hover:border-burgundy/50 transition-colors">
+                <div class="flex justify-between items-center text-xs font-mono text-neutral-400">
+                  <span>MODULE: ACADEMIC CORE</span>
+                  <span class="w-2 h-2 rounded-full bg-burgundy"></span>
+                </div>
+                <div class="space-y-3">
+                  <div class="h-3 w-3/4 bg-neutral-800 rounded"></div>
+                  <div class="h-3 w-1/2 bg-neutral-800 rounded"></div>
+                  <div class="p-3 bg-neutral-950 border border-neutral-800 rounded text-xs font-mono text-neutral-400">
+                    <div>&gt; Role: Student / Staff / Admin</div>
+                    <div class="text-burgundy mt-1">&gt; Status: Structured Concept</div>
+                  </div>
+                </div>
+                <div class="flex justify-between text-[10px] font-mono text-neutral-500">
+                  <span>RVCE AI &amp; DS Department</span>
+                  <span>System Architecture</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 2 -->
+          <article class="editorial-card rounded-xl p-8 lg:p-12 relative overflow-hidden group">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div class="lg:col-span-7 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-3 mb-4">
+                    <span class="text-xs font-mono text-burgundy font-bold">PROJECT // 02</span>
+                    <span class="text-neutral-600">•</span>
+                    <span class="text-xs font-mono uppercase tracking-wider text-mutedGray">Civic Tech Full-Stack Concept</span>
+                  </div>
+                  
+                  <h3 class="text-3xl sm:text-4xl lg:text-5xl font-display uppercase text-white tracking-wide group-hover:text-burgundy transition-colors duration-300">
+                    Local Civic Complaint Gap
+                  </h3>
+
+                  <p class="text-neutral-300 text-base font-light mt-4 leading-relaxed font-sans">
+                    A civic grievance reporting application concept designed to bridge the visibility gap between citizens and local administrative authorities. Enables photo uploads, precise geolocation mapping via OpenStreetMap, status tracking, and municipal triage dashboards.
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mt-6">
+                    <span class="px-3 py-1 bg-burgundy/20 border border-burgundy/40 text-xs font-mono text-white rounded">HTML / CSS / JS</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Tailwind CSS</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Python Flask</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">MongoDB</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">OpenStreetMap</span>
+                  </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-neutral-800 flex flex-wrap items-center gap-4">
+                  <button onclick="openProjectModal('project-2')" class="interactive-link px-5 py-2.5 bg-burgundy hover:bg-burgundy-deep text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                    <span>View Case Study</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  </button>
+                  <a href="https://github.com/Mtamilselven10" target="_blank" rel="noopener noreferrer" class="interactive-link px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                    <span>Repository Placeholder</span>
+                  </a>
+                  <a href="#" class="live-demo-link" aria-label="Open live demo for Project 2" title="Replace # with this project's live URL">
+                    <i data-lucide="globe" class="w-3.5 h-3.5"></i><span>Live Demo</span>
+                  </a>
+                  <span class="text-[11px] font-mono text-neutral-500 italic">Planned Tech Stack Active</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 aspect-[4/3] bg-gradient-to-br from-neutral-900 via-neutral-950 to-neutral-900 border border-neutral-800 rounded-lg p-6 flex flex-col justify-between relative overflow-hidden group-hover:border-burgundy/50 transition-colors">
+                <div class="flex justify-between items-center text-xs font-mono text-neutral-400">
+                  <span>GEO-SPATIAL COMPLAINT ENGINE</span>
+                  <span class="px-2 py-0.5 bg-burgundy text-[10px] text-white rounded">MAPPING</span>
+                </div>
+                <div class="relative py-4 flex flex-col items-center justify-center">
+                  <div class="w-16 h-16 rounded-full border border-dashed border-burgundy flex items-center justify-center animate-spin" style="animation-duration: 20s;">
+                    <i data-lucide="map-pin" class="w-6 h-6 text-burgundy"></i>
+                  </div>
+                  <p class="text-xs font-mono text-neutral-400 mt-3 text-center">OpenStreetMap Coordinate Binding</p>
+                  <p class="text-[11px] text-neutral-500 font-sans">Public Grievance &rarr; Verified Authority Triage</p>
+                </div>
+                <div class="flex justify-between text-[10px] font-mono text-neutral-500">
+                  <span>Flask REST API</span>
+                  <span>MongoDB Document Store</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 3 -->
+          <article class="editorial-card rounded-xl p-8 lg:p-12 relative overflow-hidden group">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div class="lg:col-span-7 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-3 mb-4">
+                    <span class="text-xs font-mono text-burgundy font-bold">PROJECT // 03</span>
+                    <span class="text-neutral-600">•</span>
+                    <span class="text-xs font-mono uppercase tracking-wider text-mutedGray">AI Messaging System Concept</span>
+                  </div>
+                  
+                  <h3 class="text-3xl sm:text-4xl lg:text-5xl font-display uppercase text-white tracking-wide group-hover:text-burgundy transition-colors duration-300">
+                    AI-Powered Student Support Bot
+                  </h3>
+
+                  <p class="text-neutral-300 text-base font-light mt-4 leading-relaxed font-sans">
+                    A conceptual AI-driven conversational agent engineered to answer student queries regarding examination schedules, syllabus details, campus events, and academic FAQs through familiar channels like Telegram and WhatsApp.
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mt-6">
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">AI Conversational Flow</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Telegram Bot API Concept</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Python Logic</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">NLP Query Routing</span>
+                  </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-neutral-800 flex flex-wrap items-center gap-4">
+                  <button onclick="openProjectModal('project-3')" class="interactive-link px-5 py-2.5 bg-burgundy hover:bg-burgundy-deep text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                    <span>View Case Study</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  </button>
+                  <a href="https://github.com/Mtamilselven10" target="_blank" rel="noopener noreferrer" class="interactive-link px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                    <span>Repository Placeholder</span>
+                  </a>
+                  <a href="#" class="live-demo-link" aria-label="Open live demo for Project 3" title="Replace # with this project's live URL">
+                    <i data-lucide="globe" class="w-3.5 h-3.5"></i><span>Live Demo</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 aspect-[4/3] bg-[#0c0c0c] border border-neutral-800 rounded-lg p-6 flex flex-col justify-between relative overflow-hidden group-hover:border-burgundy/50 transition-colors">
+                <div class="flex justify-between items-center text-xs font-mono text-neutral-400">
+                  <span>TELEGRAM / WHATSAPP INTEGRATION</span>
+                  <i data-lucide="bot" class="w-4 h-4 text-burgundy"></i>
+                </div>
+                <div class="space-y-3 font-sans text-xs">
+                  <div class="bg-neutral-900 p-2.5 rounded max-w-[80%] text-neutral-300">
+                    "When is the AI &amp; DS semester exam timetable published?"
+                  </div>
+                  <div class="bg-burgundy/30 border border-burgundy/40 p-2.5 rounded max-w-[85%] ml-auto text-white">
+                    "Timetable released on the RVCE portal. Commencing Nov 24th."
+                  </div>
+                </div>
+                <div class="flex justify-between text-[10px] font-mono text-neutral-500">
+                  <span>Automated FAQ Dispatcher</span>
+                  <span>Natural Language Query</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 4 -->
+          <article class="editorial-card rounded-xl p-8 lg:p-12 relative overflow-hidden group">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div class="lg:col-span-7 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-3 mb-4">
+                    <span class="text-xs font-mono text-burgundy font-bold">PROJECT // 04</span>
+                    <span class="text-neutral-600">•</span>
+                    <span class="text-xs font-mono uppercase tracking-wider text-mutedGray">Workplace Concept</span>
+                  </div>
+                  
+                  <h3 class="text-3xl sm:text-4xl lg:text-5xl font-display uppercase text-white tracking-wide group-hover:text-burgundy transition-colors duration-300">
+                    HR-Pulse
+                  </h3>
+
+                  <p class="text-neutral-300 text-base font-light mt-4 leading-relaxed font-sans">
+                    An HR operations and team coordination prototype focusing on internal company communication, task handoffs, and employee project status sync. Aimed at eliminating scattered communication channels across teams.
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mt-6">
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Employee Coordination</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">Task Handoffs</span>
+                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">UI Dashboard</span>
+                  </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-neutral-800 flex flex-wrap items-center gap-4">
+                  <button onclick="openProjectModal('project-4')" class="interactive-link px-5 py-2.5 bg-burgundy hover:bg-burgundy-deep text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                    <span>View Case Study</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  </button>
+                  <a href="https://github.com/Mtamilselven10" target="_blank" rel="noopener noreferrer" class="interactive-link px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                    <span>Repository Placeholder</span>
+                  </a>
+                  <a href="#" class="live-demo-link" aria-label="Open live demo for Project 4" title="Replace # with this project's live URL">
+                    <i data-lucide="globe" class="w-3.5 h-3.5"></i><span>Live Demo</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 aspect-[4/3] bg-[#0c0c0c] border border-neutral-800 rounded-lg p-6 flex flex-col justify-between relative overflow-hidden group-hover:border-burgundy/50 transition-colors">
+                <div class="flex justify-between items-center text-xs font-mono text-neutral-400">
+                  <span>HR-PULSE DASHBOARD VIEW</span>
+                  <span class="text-burgundy font-mono text-xs">STATUS: CONCEPT</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="p-3 bg-neutral-900 border border-neutral-800 rounded">
+                    <span class="text-[10px] text-neutral-500 font-mono">Team Sync</span>
+                    <p class="text-sm font-semibold text-white mt-1">Daily Status</p>
+                  </div>
+                  <div class="p-3 bg-neutral-900 border border-neutral-800 rounded">
+                    <span class="text-[10px] text-neutral-500 font-mono">Workforce</span>
+                    <p class="text-sm font-semibold text-white mt-1">Directory Flow</p>
+                  </div>
+                </div>
+                <div class="flex justify-between text-[10px] font-mono text-neutral-500">
+                  <span>Project Coordination</span>
+                  <span>Internal Communication</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="creative" class="py-24 sm:py-32 px-6 bg-[#060606]/85 backdrop-blur-[2px] relative z-10 border-b border-neutral-900">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-burgundy font-mono text-xs uppercase tracking-widestExtra">04 // BEYOND THE CODE</span>
+              <div class="h-[1px] w-16 bg-burgundy/50"></div>
+            </div>
+            <h2 class="text-4xl sm:text-7xl font-display uppercase tracking-tight text-white">
+              BEYOND THE <span class="text-burgundy">SCREEN.</span>
+            </h2>
+          </div>
+          <p class="text-mutedGray text-sm font-sans max-w-md">
+            Hands-on visual storytelling, college event video coverage, color grading in DaVinci Resolve, and cinematic cuts using Premiere Pro &amp; CapCut.
+          </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap gap-3 mb-10 text-xs font-mono uppercase tracking-widest" id="creative-filter-container">
+          <button onclick="filterCreative('all')" class="creative-filter-btn px-4 py-2 bg-burgundy text-white rounded transition-colors active" data-filter="all">All Media</button>
+          <button onclick="filterCreative('video')" class="creative-filter-btn px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded transition-colors" data-filter="video">College Videos</button>
+          <button onclick="filterCreative('grading')" class="creative-filter-btn px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded transition-colors" data-filter="grading">Color Grading</button>
+          <button onclick="filterCreative('posters')" class="creative-filter-btn px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 rounded transition-colors" data-filter="posters">Graphics &amp; Posters</button>
+        </div>
+
+        <!-- Creative Masonry/Editorial Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="creative-grid">
+
+          <!-- Item 1: College Event Reel -->
+          <div class="creative-item group relative rounded-lg overflow-hidden border border-neutral-800 bg-[#0c0c0c] flex flex-col justify-between" data-category="video">
+            <div class="aspect-video bg-neutral-900 relative overflow-hidden flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+              <div class="w-full h-full bg-[radial-gradient(#470013_1px,transparent_1px)] [background-size:12px_12px] opacity-40"></div>
+              <div class="absolute z-20 flex flex-col items-center">
+                <div class="w-12 h-12 rounded-full bg-burgundy flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                  <i data-lucide="play" class="w-5 h-5 ml-0.5"></i>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-300 uppercase tracking-widest mt-2">Preview Reel</span>
+              </div>
+            </div>
+            <div class="p-6 relative z-20">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">College Symposium Aftermovie</span>
+              <h4 class="text-xl font-display uppercase text-white mt-1">RVCE Campus Event Highlights</h4>
+              <p class="text-xs text-neutral-400 font-sans mt-2">
+                Fast-paced cinematic montage covering stage events, student crowds, rhythmic beat sync, and low-light color correction.
+              </p>
+              <div class="mt-4 flex items-center justify-between text-xs font-mono text-mutedGray pt-3 border-t border-neutral-800">
+                <span>DaVinci Resolve / CapCut</span>
+                <button onclick="openVideoModal('RVCE Campus Event Highlights', 'Fast-paced event recap video edit synced to high-energy beats with dramatic color correction.')" class="text-burgundy hover:text-white font-bold transition-colors">
+                  Watch Clip &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2: Color Grading Showcase -->
+          <div class="creative-item group relative rounded-lg overflow-hidden border border-neutral-800 bg-[#0c0c0c] flex flex-col justify-between" data-category="grading">
+            <div class="aspect-video bg-neutral-900 relative overflow-hidden flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-10"></div>
+              <div class="absolute inset-0 flex">
+                <div class="w-1/2 bg-neutral-800 opacity-60 flex items-center justify-center border-r border-white/20">
+                  <span class="text-[10px] font-mono text-neutral-400">LOG / FLAT</span>
+                </div>
+                <div class="w-1/2 bg-burgundy-soft/60 flex items-center justify-center">
+                  <span class="text-[10px] font-mono text-burgundy-glow">GRADED</span>
+                </div>
+              </div>
+              <div class="absolute z-20">
+                <i data-lucide="sliders" class="w-8 h-8 text-white opacity-80 group-hover:rotate-45 transition-transform"></i>
+              </div>
+            </div>
+            <div class="p-6 relative z-20">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">Cinematic Color Palette</span>
+              <h4 class="text-xl font-display uppercase text-white mt-1">Moody Burgundy &amp; Teal Grading</h4>
+              <p class="text-xs text-neutral-400 font-sans mt-2">
+                Color pass on outdoor footage focusing on natural skin tones, contrast roll-off, and subtle split-toning using Adobe Lightroom &amp; DaVinci.
+              </p>
+              <div class="mt-4 flex items-center justify-between text-xs font-mono text-mutedGray pt-3 border-t border-neutral-800">
+                <span>Lightroom / DaVinci</span>
+                <span class="text-neutral-500 font-mono text-[11px]">Personal Study</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3: Creative Poster & Typography Art -->
+          <div class="creative-item group relative rounded-lg overflow-hidden border border-neutral-800 bg-[#0c0c0c] flex flex-col justify-between" data-category="posters">
+            <div class="aspect-video bg-neutral-900 relative overflow-hidden flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+              <div class="absolute inset-0 flex items-center justify-center p-4">
+                <div class="border border-white/10 p-4 text-center">
+                  <span class="font-display text-2xl text-white tracking-widest block">INNOVATION '26</span>
+                  <span class="text-[9px] font-mono text-burgundy tracking-widest">POSTER COMPOSITION</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 relative z-20">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">Graphic Typography</span>
+              <h4 class="text-xl font-display uppercase text-white mt-1">Tech Symposium Visual Identity</h4>
+              <p class="text-xs text-neutral-400 font-sans mt-2">
+                Event poster and social media creative banners designed using PicsArt &amp; Figma with high-contrast editorial typography.
+              </p>
+              <div class="mt-4 flex items-center justify-between text-xs font-mono text-mutedGray pt-3 border-t border-neutral-800">
+                <span>Figma / PicsArt</span>
+                <span class="text-neutral-500 font-mono text-[11px]">Event Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4: Short-Form Reel Pacing -->
+          <div class="creative-item group relative rounded-lg overflow-hidden border border-neutral-800 bg-[#0c0c0c] flex flex-col justify-between" data-category="video">
+            <div class="aspect-video bg-neutral-900 relative overflow-hidden flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+              <div class="absolute z-20 flex flex-col items-center">
+                <div class="w-12 h-12 rounded-full bg-burgundy flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                  <i data-lucide="play" class="w-5 h-5 ml-0.5"></i>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-300 uppercase tracking-widest mt-2">Reel Cut</span>
+              </div>
+            </div>
+            <div class="p-6 relative z-20">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">Short-Form Rhythm</span>
+              <h4 class="text-xl font-display uppercase text-white mt-1">Cinematic Reel Cuts</h4>
+              <p class="text-xs text-neutral-400 font-sans mt-2">
+                Fast-cut vertical and widescreen social edits demonstrating speed ramping, audio keyframing, and seamless transitions in Premiere Pro &amp; CapCut.
+              </p>
+              <div class="mt-4 flex items-center justify-between text-xs font-mono text-mutedGray pt-3 border-t border-neutral-800">
+                <span>Premiere Pro / CapCut</span>
+                <button onclick="openVideoModal('Cinematic Reel Cuts', 'Short-form visual editing showcasing speed ramping, keyframe zooms, and sound design.')" class="text-burgundy hover:text-white font-bold transition-colors">
+                  Watch Clip &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5: Visual Effects & Titles -->
+          <div class="creative-item group relative rounded-lg overflow-hidden border border-neutral-800 bg-[#0c0c0c] flex flex-col justify-between" data-category="posters">
+            <div class="aspect-video bg-neutral-900 relative overflow-hidden flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+              <div class="text-center z-20">
+                <i data-lucide="sparkles" class="w-8 h-8 text-burgundy mx-auto mb-2"></i>
+                <span class="text-[10px] font-mono text-neutral-300 uppercase tracking-widest">Title Sequences</span>
+              </div>
+            </div>
+            <div class="p-6 relative z-20">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">Motion Typography</span>
+              <h4 class="text-xl font-display uppercase text-white mt-1">Editorial Video Intros</h4>
+              <p class="text-xs text-neutral-400 font-sans mt-2">
+                Experimentation with text masks, glitch reveals, and bold typographic openers for video presentations.
+              </p>
+              <div class="mt-4 flex items-center justify-between text-xs font-mono text-mutedGray pt-3 border-t border-neutral-800">
+                <span>Premiere Pro</span>
+                <span class="text-neutral-500 font-mono text-[11px]">Motion Concept</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6: Creative Photography Retouching -->
+          <div class="creative-item group relative rounded-lg overflow-hidden border border-neutral-800 bg-[#0c0c0c] flex flex-col justify-between" data-category="grading">
+            <div class="aspect-video bg-neutral-900 relative overflow-hidden flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+              <div class="text-center z-20">
+                <i data-lucide="camera" class="w-8 h-8 text-white opacity-70 mx-auto mb-2"></i>
+                <span class="text-[10px] font-mono text-neutral-300 uppercase tracking-widest">Photography Edit</span>
+              </div>
+            </div>
+            <div class="p-6 relative z-20">
+              <span class="text-[11px] font-mono text-burgundy uppercase tracking-widest">Still Retouching</span>
+              <h4 class="text-xl font-display uppercase text-white mt-1">Atmospheric Tonal Adjustments</h4>
+              <p class="text-xs text-neutral-400 font-sans mt-2">
+                Color calibration of campus and architectural frames with emphasis on shadow warmth and highlight preservation.
+              </p>
+              <div class="mt-4 flex items-center justify-between text-xs font-mono text-mutedGray pt-3 border-t border-neutral-800">
+                <span>Lightroom</span>
+                <span class="text-neutral-500 font-mono text-[11px]">Visual Portfolio</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="timeline" class="py-24 sm:py-32 px-6 bg-black/85 backdrop-blur-[2px] relative z-10 border-b border-neutral-900">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-burgundy font-mono text-xs uppercase tracking-widestExtra">05 // MILESTONES</span>
+              <div class="h-[1px] w-16 bg-burgundy/50"></div>
+            </div>
+            <h2 class="text-4xl sm:text-7xl font-display uppercase tracking-tight text-white">
+              ALWAYS IN <span class="text-burgundy">PROGRESS.</span>
+            </h2>
+          </div>
+          <p class="text-mutedGray text-sm font-sans max-w-md">
+            Verified academic chronology and self-directed milestones in Artificial Intelligence, web development, and digital post-production.
+          </p>
+        </div>
+
+        <!-- Vertical Timeline with Editorial Line -->
+        <div class="relative border-l border-neutral-800 ml-4 md:ml-32 pl-8 md:pl-16 space-y-12">
+
+          <!-- Item 1: Undergraduate Degree -->
+          <div class="relative group">
+            <div class="absolute -left-[41px] md:-left-[73px] top-1.5 w-5 h-5 rounded-full bg-black border-2 border-burgundy flex items-center justify-center group-hover:scale-125 transition-transform">
+              <div class="w-2 h-2 rounded-full bg-burgundy"></div>
+            </div>
+            
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-mono uppercase tracking-widest text-burgundy font-bold">2023 — Present (Undergraduate)</span>
+              <h3 class="text-2xl font-display uppercase text-white tracking-wide">B.Tech Artificial Intelligence and Data Science</h3>
+              <p class="text-sm font-medium text-neutral-300">Renganayagi Varadaraj College of Engineering (RVCE)</p>
+              <p class="text-sm text-neutral-400 font-light mt-2 max-w-2xl font-sans">
+                Pursuing comprehensive coursework covering fundamentals of Data Structures, Python programming, Database Management Systems, Machine Learning concepts, and discrete mathematics.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 2: Self-Directed Web Development -->
+          <div class="relative group">
+            <div class="absolute -left-[41px] md:-left-[73px] top-1.5 w-5 h-5 rounded-full bg-black border-2 border-neutral-700 flex items-center justify-center group-hover:border-burgundy transition-colors">
+              <div class="w-2 h-2 rounded-full bg-neutral-600 group-hover:bg-burgundy transition-colors"></div>
+            </div>
+            
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">2024 — Ongoing</span>
+              <h3 class="text-2xl font-display uppercase text-white tracking-wide">Frontend &amp; Full-Stack Deep Dive</h3>
+              <p class="text-sm font-medium text-neutral-300">Independent Projects &amp; Open-Source Studies</p>
+              <p class="text-sm text-neutral-400 font-light mt-2 max-w-2xl font-sans">
+                Progressed from basic HTML/CSS into semantic, responsive architectures, mastering Tailwind CSS, modern JavaScript, and Flask backends connected to MongoDB.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 3: UI/UX & Figma Exploration -->
+          <div class="relative group">
+            <div class="absolute -left-[41px] md:-left-[73px] top-1.5 w-5 h-5 rounded-full bg-black border-2 border-neutral-700 flex items-center justify-center group-hover:border-burgundy transition-colors">
+              <div class="w-2 h-2 rounded-full bg-neutral-600 group-hover:bg-burgundy transition-colors"></div>
+            </div>
+            
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">2024 — Ongoing</span>
+              <h3 class="text-2xl font-display uppercase text-white tracking-wide">UI/UX Principles &amp; Wireframing</h3>
+              <p class="text-sm font-medium text-neutral-300">Design Systems &amp; Prototyping</p>
+              <p class="text-sm text-neutral-400 font-light mt-2 max-w-2xl font-sans">
+                Standardized personal workflow around Figma. Designed interactive low and high-fidelity mockups for projects including the Local Civic Complaint Gap and student utility apps.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 4: Content Creation & Media Production -->
+          <div class="relative group">
+            <div class="absolute -left-[41px] md:-left-[73px] top-1.5 w-5 h-5 rounded-full bg-black border-2 border-neutral-700 flex items-center justify-center group-hover:border-burgundy transition-colors">
+              <div class="w-2 h-2 rounded-full bg-neutral-600 group-hover:bg-burgundy transition-colors"></div>
+            </div>
+            
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">2023 — Present</span>
+              <h3 class="text-2xl font-display uppercase text-white tracking-wide">Video Editing &amp; Creative Visuals</h3>
+              <p class="text-sm font-medium text-neutral-300">Campus Events &amp; Digital Content</p>
+              <p class="text-sm text-neutral-400 font-light mt-2 max-w-2xl font-sans">
+                Active video editing for college symposiums, promotional reels, and social media campaigns using DaVinci Resolve, Premiere Pro, and CapCut.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contact" class="py-24 sm:py-36 px-6 bg-[#040404]/90 backdrop-blur-[2px] relative z-10">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          
+          <div class="lg:col-span-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <span class="text-burgundy font-mono text-xs uppercase tracking-widestExtra">06 // INITIATE</span>
+                <div class="h-[1px] w-16 bg-burgundy/50"></div>
+              </div>
+
+              <h2 class="text-5xl sm:text-7xl lg:text-8xl font-display uppercase tracking-tight text-white leading-none">
+                LET'S MAKE <br>
+                <span class="text-burgundy">SOMETHING</span> <br>
+                GREAT<span class="text-white">.</span>
+              </h2>
+
+              <p class="text-lg text-neutral-300 font-light mt-8 max-w-md font-sans">
+                Available for internships, frontend and full-stack opportunities, creative video collaborations, or student-led technical initiatives.
+              </p>
+            </div>
+
+            <!-- Email Quick Copy Tool -->
+            <div class="mt-12 p-6 bg-neutral-950 border border-neutral-800 rounded-lg">
+              <span class="text-xs font-mono uppercase tracking-widest text-neutral-400 block mb-2">Direct Inquiries</span>
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <span id="target-email" class="font-mono text-sm sm:text-base text-white font-medium select-all">tamilselvan2us@gmail.com</span>
+                <button id="copy-email-btn" onclick="copyContactEmail()" class="interactive-link px-4 py-2 bg-burgundy hover:bg-burgundy-deep text-white text-xs font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span id="copy-btn-text">Copy Email</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Verified Social Profiles -->
+            <div class="mt-10">
+              <span class="text-xs font-mono uppercase tracking-widest text-neutral-400 block mb-4">Connect on Networks</span>
+              <div class="flex flex-wrap gap-4">
+                <a href="https://github.com/Mtamilselven10" target="_blank" rel="noopener noreferrer" class="interactive-link px-5 py-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-white text-xs font-mono uppercase tracking-wider rounded transition-all flex items-center gap-2">
+                  <i data-lucide="github" class="w-4 h-4 text-burgundy"></i>
+                  <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/tamilselvan-mahatma-gandhi-m/" target="_blank" rel="noopener noreferrer" class="interactive-link px-5 py-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-white text-xs font-mono uppercase tracking-wider rounded transition-all flex items-center gap-2">
+                  <i data-lucide="linkedin" class="w-4 h-4 text-burgundy"></i>
+                  <span>LinkedIn</span>
+                </a>
+                <a href="https://www.instagram.com/itz_tamil_offll/" target="_blank" rel="noopener noreferrer" class="interactive-link px-5 py-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-white text-xs font-mono uppercase tracking-wider rounded transition-all flex items-center gap-2">
+                  <i data-lucide="instagram" class="w-4 h-4 text-burgundy"></i>
+                  <span>Instagram</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="bg-[#0b0b0b] border border-neutral-800 p-8 sm:p-10 rounded-xl relative">
+              <h3 class="text-2xl font-display uppercase tracking-wider text-white mb-2">Send a Direct Message</h3>
+              <p class="text-xs text-mutedGray font-mono mb-8">
+                Fill out the message parameters below. This form directly drafts your inquiry into your mail client with complete payload safety.
+              </p>
+
+              <form id="contact-form" onsubmit="handleFormSubmission(event)" class="space-y-6">
+                <div>
+                  <label for="user-name" class="block text-xs font-mono uppercase tracking-wider text-neutral-300 mb-2">Your Name</label>
+                  <input type="text" id="user-name" required placeholder="e.g. Alex Morgan" class="w-full bg-neutral-900 border border-neutral-700 rounded px-4 py-3 text-sm text-white focus:border-burgundy focus:outline-none transition-colors">
+                </div>
+
+                <div>
+                  <label for="user-email" class="block text-xs font-mono uppercase tracking-wider text-neutral-300 mb-2">Your Email</label>
+                  <input type="email" id="user-email" required placeholder="e.g. alex@company.com" class="w-full bg-neutral-900 border border-neutral-700 rounded px-4 py-3 text-sm text-white focus:border-burgundy focus:outline-none transition-colors">
+                </div>
+
+                <div>
+                  <label for="user-subject" class="block text-xs font-mono uppercase tracking-wider text-neutral-300 mb-2">Inquiry Type</label>
+                  <select id="user-subject" class="w-full bg-neutral-900 border border-neutral-700 rounded px-4 py-3 text-sm text-white focus:border-burgundy focus:outline-none transition-colors">
+                    <option value="Internship Opportunity">Internship Opportunity</option>
+                    <option value="Frontend Development Project">Frontend Development Project</option>
+                    <option value="Video Editing / Motion Design">Video Editing / Motion Design</option>
+                    <option value="Student Project Collaboration">Student Project Collaboration</option>
+                    <option value="General Conversation">General Conversation</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="user-message" class="block text-xs font-mono uppercase tracking-wider text-neutral-300 mb-2">Message</label>
+                  <textarea id="user-message" rows="4" required placeholder="Detail your project or role requirements..." class="w-full bg-neutral-900 border border-neutral-700 rounded px-4 py-3 text-sm text-white focus:border-burgundy focus:outline-none transition-colors"></textarea>
+                </div>
+
+                <button type="submit" class="interactive-link w-full py-4 bg-burgundy hover:bg-burgundy-deep text-white font-mono text-xs uppercase tracking-widestExtra rounded transition-all duration-300 flex items-center justify-center gap-2 group">
+                  <span>Send Message via Email Client</span>
+                  <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+              </form>
+
+              <div class="mt-4 text-center">
+                <span class="text-[10px] font-mono text-neutral-500">
+                  Direct client-side dispatch. No external tracking cookies.
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Global Site Footer -->
+        <footer class="mt-28 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-neutral-500">
+          <div>
+            &copy; 2026 TAMILSELVAN M. ALL RIGHTS RESERVED.
+          </div>
+          <div class="flex items-center gap-4">
+            <span>Renganayagi Varadaraj College of Engineering</span>
+            <span class="text-neutral-700">•</span>
+            <span class="text-burgundy">Designed &amp; Built with Code</span>
+          </div>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+ 
+
+ <script>
+    // Initialize Lucide Icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
+    /* -------------------------------------------------------------
+       1. Continuous Scroll-Linked 3D Scene (Three.js)
+       ------------------------------------------------------------- */
+    let scene, camera, renderer;
+    let mainGroup, coreMesh, wireCage, outerTorus, particleSystem;
+    let targetScrollProgress = 0;
+    let currentScrollProgress = 0;
+    let mouseX = 0, mouseY = 0;
+    let targetMouseX = 0, targetMouseY = 0;
+
+    function initThreeScene() {
+      const canvas = document.getElementById('global-3d-canvas');
+      if (!canvas || !window.THREE) return;
+
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x000000, 0.035);
+
+      camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.z = 18;
+
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: true,
+        powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+
+      const burgundyPointLight = new THREE.PointLight(0x6D001A, 5.5, 40);
+      burgundyPointLight.position.set(5, 5, 10);
+      scene.add(burgundyPointLight);
+
+      const warmAccentLight = new THREE.PointLight(0x8E0024, 4, 30);
+      warmAccentLight.position.set(-6, -4, 8);
+      scene.add(warmAccentLight);
+
+      // Central Anchor Group
+      mainGroup = new THREE.Group();
+      scene.add(mainGroup);
+
+      // 1. Faceted Icosahedron Core
+      const coreGeometry = new THREE.IcosahedronGeometry(3.2, 1);
+      const coreMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0x470013,
+        emissive: 0x220008,
+        roughness: 0.25,
+        metalness: 0.85,
+        clearcoat: 0.8,
+        clearcoatRoughness: 0.2,
+        flatShading: true
+      });
+      coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
+      mainGroup.add(coreMesh);
+
+      // 2. Wireframe Exo-Cage
+      const wireGeometry = new THREE.IcosahedronGeometry(3.6, 2);
+      const wireMaterial = new THREE.MeshBasicMaterial({
+        color: 0x6D001A,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.45
+      });
+      wireCage = new THREE.Mesh(wireGeometry, wireMaterial);
+      mainGroup.add(wireCage);
+
+      // 3. Floating Orbital Torus Ring
+      const torusGeometry = new THREE.TorusGeometry(5.2, 0.04, 16, 100);
+      const torusMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.25
+      });
+      outerTorus = new THREE.Mesh(torusGeometry, torusMaterial);
+      outerTorus.rotation.x = Math.PI / 3;
+      mainGroup.add(outerTorus);
+
+      // 4. Subtle Ambient Cloud Particles
+      const particleCount = 280;
+      const particleGeometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      const colBurgundy = new THREE.Color(0x6D001A);
+      const colWhite = new THREE.Color(0xffffff);
+
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 45;
+        positions[i + 1] = (Math.random() - 0.5) * 45;
+        positions[i + 2] = (Math.random() - 0.5) * 35;
+
+        const mixedCol = Math.random() > 0.4 ? colBurgundy : colWhite;
+        colors[i] = mixedCol.r;
+        colors[i + 1] = mixedCol.g;
+        colors[i + 2] = mixedCol.b;
+      }
+
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 0.12,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.7,
+        blending: THREE.AdditiveBlending
+      });
+
+      particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particleSystem);
+
+      positionModelForViewport();
+      window.addEventListener('resize', onWindowResize, false);
+      window.addEventListener('mousemove', onPointerMove, { passive: true });
+    }
+
+    function positionModelForViewport() {
+      if (!mainGroup) return;
+      if (window.innerWidth < 768) {
+        mainGroup.position.set(0, 0, 0);
+        mainGroup.scale.set(0.72, 0.72, 0.72);
+      } else {
+        mainGroup.position.set(4.2, 0.5, 0);
+        mainGroup.scale.set(1.0, 1.0, 1.0);
+      }
+    }
+
+    function onPointerMove(e) {
+      targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    function onWindowResize() {
+      if (!camera || !renderer) return;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      positionModelForViewport();
+    }
+
+    window.addEventListener('scroll', () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll > 0) {
+        targetScrollProgress = window.scrollY / maxScroll;
+      }
+    }, { passive: true });
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.06;
+      mouseX += (targetMouseX - mouseX) * 0.05;
+      mouseY += (targetMouseY - mouseY) * 0.05;
+
+      if (mainGroup) {
+        const p = currentScrollProgress;
+        const isMobile = window.innerWidth < 768;
+
+        if (isMobile) {
+          mainGroup.position.x = Math.sin(p * Math.PI * 3) * 1.5;
+          mainGroup.position.y = -p * 6 + (mouseY * 0.5);
+          mainGroup.position.z = Math.cos(p * Math.PI * 2) * 2;
+        } else {
+          const baseX = 4.2 - (Math.sin(p * Math.PI * 2.5) * 8.5);
+          mainGroup.position.x = baseX + (mouseX * 0.8);
+          mainGroup.position.y = 0.5 - (p * 5.0) + (mouseY * 0.8);
+          mainGroup.position.z = Math.sin(p * Math.PI * 2) * 3.5;
+        }
+
+        const time = performance.now() * 0.0008;
+        mainGroup.rotation.x = time * 0.4 + (p * Math.PI * 4) + (mouseY * 0.2);
+        mainGroup.rotation.y = time * 0.6 + (p * Math.PI * 5) + (mouseX * 0.3);
+        mainGroup.rotation.z = time * 0.2 + (p * Math.PI * 2);
+
+        if (coreMesh) coreMesh.rotation.y = time * 0.3;
+        if (wireCage) {
+          wireCage.rotation.y = -time * 0.5;
+          wireCage.rotation.x = -time * 0.2;
+        }
+        if (outerTorus) outerTorus.rotation.z = time * 0.8 + (p * 8);
+      }
+
+      if (particleSystem) {
+        particleSystem.rotation.y = performance.now() * 0.00015 + (currentScrollProgress * 1.5);
+      }
+
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       2. The Signature 5-Phase 3D Animated Splash Sequence
+       ------------------------------------------------------------- */
+    const splashScreen = document.getElementById('splash-screen');
+    const splashCard = document.getElementById('splash-3d-card');
+    const aboutCard = document.getElementById('about-card-3d');
+    let splashDismissed = false;
+
+    // Check if user already saw the intro during this session
+    const hasSeenSplash = sessionStorage.getItem('tamilselvan_splash_seen');
+
+    function runSplashSequence() {
+      if (hasSeenSplash === 'true') {
+        dismissSplashImmediately();
+        return;
+      }
+
+      const drawLine = document.getElementById('splash-draw-line');
+      const topBrand = document.getElementById('splash-top-brand');
+      const phase1Text = document.getElementById('splash-phase1-text');
+      const nameElem = document.getElementById('splash-name');
+      const rolesElem = document.getElementById('splash-roles');
+      const enterZone = document.getElementById('splash-enter-zone');
+      const percentageElem = document.getElementById('splash-percentage');
+      const statusElem = document.getElementById('splash-progress-status');
+
+      // Phase 1 (Opening, 0s - 1.2s): Line draw and philosophical message
+      setTimeout(() => {
+        if (drawLine) drawLine.style.width = '60%';
+        if (topBrand) {
+          topBrand.classList.remove('opacity-0');
+          topBrand.classList.add('opacity-100');
+        }
+      }, 200);
+
+      setTimeout(() => {
+        if (phase1Text) {
+          phase1Text.classList.remove('opacity-0', 'translate-y-4');
+          phase1Text.classList.add('opacity-100', 'translate-y-0');
+        }
+        if (percentageElem) percentageElem.textContent = '25%';
+        if (statusElem) statusElem.textContent = 'INITIALIZING 3D PERSPECTIVE...';
+      }, 800);
+
+      // Phase 1 Transition into "CREATIVITY IN MOTION" (1.5s)
+      setTimeout(() => {
+        if (phase1Text) {
+          phase1Text.style.opacity = '0';
+          setTimeout(() => {
+            phase1Text.textContent = 'CREATIVITY IN MOTION.';
+            phase1Text.classList.add('text-burgundy-glow');
+            phase1Text.style.opacity = '1';
+          }, 300);
+        }
+        if (percentageElem) percentageElem.textContent = '50%';
+        if (statusElem) statusElem.textContent = 'LOADING CUTOUT PORTRAIT...';
+      }, 1800);
+
+      // Phase 2 & 3: Photo Reveal with 3D Y-axis rotation & perspective scaling (2.4s)
+      setTimeout(() => {
+        if (splashCard) {
+          splashCard.classList.remove('opacity-0', 'scale-90');
+          splashCard.classList.add('opacity-100', 'scale-100');
+          splashCard.style.transform = 'perspective(1200px) rotateY(0deg) translateY(0px)';
+        }
+        if (percentageElem) percentageElem.textContent = '75%';
+        if (statusElem) statusElem.textContent = 'INTERACTIVE RIG READY...';
+      }, 2500);
+
+      // Phase 4: Staggered Name Reveal & Enter Action (3.4s)
+      setTimeout(() => {
+        if (nameElem) {
+          nameElem.classList.remove('opacity-0');
+          nameElem.classList.add('opacity-100');
+        }
+        if (rolesElem) {
+          rolesElem.classList.remove('opacity-0');
+          rolesElem.classList.add('opacity-100');
+        }
+        if (enterZone) {
+          enterZone.classList.remove('opacity-0');
+          enterZone.classList.add('opacity-100');
+        }
+        if (percentageElem) percentageElem.textContent = '100%';
+        if (statusElem) statusElem.textContent = 'WELCOME TO MY WORLD';
+      }, 3400);
+
+      // Phase 5: Smooth automatic exit transition into main website around 5.8s
+      setTimeout(() => {
+        if (!splashDismissed) {
+          dismissSplashImmediately();
+        }
+      }, 5800);
+    }
+
+    // 3D Parallax & Gyroscope Tracker for Splash and About Me Cards
+    function bind3DCardInteractions() {
+      window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) - 0.5;
+        const y = (e.clientY / window.innerHeight) - 0.5;
+
+        if (!splashDismissed && splashCard) {
+          splashCard.style.transform = `rotateY(${x * 22}deg) rotateX(${-y * 22}deg)`;
+        }
+
+        if (aboutCard) {
+          const rect = aboutCard.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            aboutCard.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
+          }
+        }
+      });
+
+      // Mobile tilt fallback (gyroscope)
+      window.addEventListener('deviceorientation', (e) => {
+        if (!e.gamma) return;
+        const tiltX = Math.min(Math.max(e.gamma, -25), 25);
+        const tiltY = Math.min(Math.max(e.beta - 45, -25), 25);
+
+        if (!splashDismissed && splashCard) {
+          splashCard.style.transform = `rotateY(${tiltX * 0.6}deg) rotateX(${-tiltY * 0.6}deg)`;
+        }
+        if (aboutCard) {
+          aboutCard.style.transform = `rotateY(${tiltX * 0.3}deg) rotateX(${-tiltY * 0.3}deg)`;
+        }
+      });
+    }
+
+    // Phase 5 Exit Curtain Transition
+    function dismissSplashImmediately() {
+      if (splashDismissed || !splashScreen) return;
+      splashDismissed = true;
+      sessionStorage.setItem('tamilselvan_splash_seen', 'true');
+
+      if (window.gsap) {
+        gsap.to(splashScreen, {
+          yPercent: -100,
+          opacity: 0,
+          duration: 1.0,
+          ease: 'power3.inOut',
+          onComplete: () => {
+            splashScreen.style.display = 'none';
+          }
+        });
+      } else {
+        splashScreen.style.transition = 'transform 0.9s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.9s ease';
+        splashScreen.style.transform = 'translateY(-100%)';
+        splashScreen.style.opacity = '0';
+        setTimeout(() => {
+          splashScreen.style.display = 'none';
+        }, 900);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       3. Custom Kinetic Cursor
+       ------------------------------------------------------------- */
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorCircle = document.getElementById('cursor-circle');
+    let curX = window.innerWidth / 2, curY = window.innerHeight / 2;
+    let targetX = curX, targetY = curY;
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      if (cursorDot) {
+        cursorDot.style.left = `${targetX}px`;
+        cursorDot.style.top = `${targetY}px`;
+      }
+    });
+
+    function renderCursor() {
+      curX += (targetX - curX) * 0.18;
+      curY += (targetY - curY) * 0.18;
+      if (cursorCircle) {
+        cursorCircle.style.left = `${curX}px`;
+        cursorCircle.style.top = `${curY}px`;
+      }
+      requestAnimationFrame(renderCursor);
+    }
+    renderCursor();
+
+    function bindCursorHovers() {
+      const targets = document.querySelectorAll('a, button, input, textarea, select, .interactive-link, .editorial-card');
+      targets.forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
+      });
+    }
+
+    /* -------------------------------------------------------------
+       4. Case Study Details Modal
+       ------------------------------------------------------------- */
+    const projectDatabase = {
+      'project-1': {
+        title: 'Students Academic Record Management System',
+        category: 'Academic Concept & System Architecture',
+        status: 'Conceptual Architecture',
+        overview: 'An academic operational system concept created to resolve fragmentation in college grading records, internal assessment workflows, and departmental transparency at RVCE.',
+        problem: 'Paper-driven grading updates, scattered attendance logs, and manual transcript generation cause delays and friction between students, professors, and administrative heads.',
+        solution: 'A unified role-based digital dashboard partitioning access into Student, Faculty, and Admin portals with structured MongoDB persistence and real-time GPA recalculations.',
+        tech: ['Workflow Architecture', 'Role-Based Access Control', 'MongoDB Modeling', 'Python Logic Concept'],
+        repo: 'https://github.com/Mtamilselven10'
+      },
+      'project-2': {
+        title: 'Local Civic Complaint Gap',
+        category: 'Full-Stack Civic Platform Concept',
+        status: 'Active Planned Stack',
+        overview: 'A civic grievance bridge that empowers everyday citizens to capture municipal issues (road potholes, broken streetlamps, sanitation hazards) and sync directly with local authorities.',
+        problem: 'Citizens lack a transparent, geotagged feedback loop to report municipal problems, leading to unresolved community hazards and zero triage visibility.',
+        solution: 'Citizens snap photos that are bound with real-time OpenStreetMap coordinates, sent through a Flask REST API, stored in MongoDB, and organized by urgency for council workers.',
+        tech: ['HTML5 / CSS3 / JS', 'Tailwind CSS', 'Python Flask', 'MongoDB', 'OpenStreetMap API'],
+        repo: 'https://github.com/Mtamilselven10'
+      },
+      'project-3': {
+        title: 'AI-Powered Student Support Bot',
+        category: 'Conversational Support Agent',
+        status: 'Integration Concept',
+        overview: 'An automated academic assistant concept designed to live where students already communicate—Telegram and WhatsApp—answering urgent syllabus and deadline queries 24/7.',
+        problem: 'Students frequently miss time-sensitive academic circulars, timetable revisions, and room assignments due to overloaded notification bulletin boards.',
+        solution: 'A lightweight conversational bot with automated FAQ dispatching, keyword matching, and document index lookup to deliver immediate verified college updates.',
+        tech: ['Python Messaging Handler', 'Telegram Bot API Concept', 'NLP Query Parsing', 'Academic FAQ Knowledgebase'],
+        repo: 'https://github.com/Mtamilselven10'
+      },
+      'project-4': {
+        title: 'HR-Pulse',
+        category: 'Workplace Operations Prototype',
+        status: 'Design & Workflow Concept',
+        overview: 'A minimalist internal communication and task status application prototype designed to streamline coordination and project visibility across distributed teams.',
+        problem: 'Fragmented chat tools and complex enterprise suites overwhelm small teams, leading to lost context and unclear task ownership.',
+        solution: 'A focused, distraction-free dashboard showing high-level daily team velocity, immediate blockers, and frictionless employee handoffs.',
+        tech: ['Figma Prototype', 'UI Architecture', 'Task State Modeling', 'Responsive Components'],
+        repo: 'https://github.com/Mtamilselven10'
+      }
+    };
+
+    const projectModal = document.getElementById('project-modal');
+    const modalSlot = document.getElementById('modal-content-slot');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+    function openProjectModal(projectId) {
+      const p = projectDatabase[projectId];
+      if (!p || !projectModal || !modalSlot) return;
+
+      modalSlot.innerHTML = `
+        <div class="space-y-6">
+          <div class="border-b border-neutral-800 pb-4">
+            <span class="text-xs font-mono uppercase tracking-widest text-burgundy font-bold">${p.category}</span>
+            <h3 class="text-3xl font-display uppercase text-white mt-1" id="modal-title">${p.title}</h3>
+            <span class="inline-block px-3 py-1 bg-burgundy/20 border border-burgundy/40 text-[11px] font-mono text-white rounded mt-3">
+              Status: ${p.status}
+            </span>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-2">Project Overview</h4>
+            <p class="text-neutral-300 text-sm sm:text-base leading-relaxed font-sans">${p.overview}</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 bg-neutral-900 border border-neutral-800 rounded">
+              <span class="text-xs font-mono uppercase tracking-wider text-burgundy font-bold block mb-1">Identified Problem</span>
+              <p class="text-xs text-neutral-300 font-sans leading-relaxed">${p.problem}</p>
+            </div>
+            <div class="p-4 bg-neutral-900 border border-neutral-800 rounded">
+              <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold block mb-1">Architected Solution</span>
+              <p class="text-xs text-neutral-300 font-sans leading-relaxed">${p.solution}</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-2">Technologies &amp; Architecture</h4>
+            <div class="flex flex-wrap gap-2">
+              ${p.tech.map(t => `<span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300 rounded">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-neutral-800 flex flex-wrap items-center justify-between gap-4">
+            <a href="${p.repo}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-burgundy hover:bg-burgundy-deep text-white text-xs font-mono uppercase tracking-wider rounded transition-colors inline-flex items-center gap-2">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              <span>View GitHub Profile / Repo</span>
+            </a>
+            <span class="text-[11px] font-mono text-neutral-500">Tamilselvan M Portfolio Case Study</span>
+          </div>
+        </div>
+      `;
+
+      projectModal.classList.remove('hidden');
+      projectModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      bindCursorHovers();
+    }
+
+    function closeCaseStudyModal() {
+      if (!projectModal) return;
+      projectModal.classList.add('hidden');
+      projectModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeCaseStudyModal);
+    if (projectModal) {
+      projectModal.addEventListener('click', (e) => {
+        if (e.target === projectModal) closeCaseStudyModal();
+      });
+    }
+
+    /* -------------------------------------------------------------
+       5. Video Showcase Modal
+       ------------------------------------------------------------- */
+    const videoModal = document.getElementById('video-preview-modal');
+    const closeVideoModalBtn = document.getElementById('close-video-modal');
+    const videoTitle = document.getElementById('video-modal-title');
+    const videoDesc = document.getElementById('video-modal-desc');
+
+    function openVideoModal(title, desc) {
+      if (!videoModal) return;
+      if (videoTitle) videoTitle.textContent = title;
+      if (videoDesc) videoDesc.textContent = desc;
+
+      videoModal.classList.remove('hidden');
+      videoModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeVideoModal() {
+      if (!videoModal) return;
+      videoModal.classList.add('hidden');
+      videoModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    if (closeVideoModalBtn) closeVideoModalBtn.addEventListener('click', closeVideoModal);
+    if (videoModal) {
+      videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) closeVideoModal();
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeCaseStudyModal();
+        closeVideoModal();
+      }
+    });
+
+    /* -------------------------------------------------------------
+       6. Creative Gallery Filtering
+       ------------------------------------------------------------- */
+    function filterCreative(category) {
+      const items = document.querySelectorAll('.creative-item');
+      const buttons = document.querySelectorAll('.creative-filter-btn');
+
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+          btn.classList.add('bg-burgundy', 'text-white');
+          btn.classList.remove('bg-neutral-900', 'text-neutral-300');
+        } else {
+          btn.classList.remove('bg-burgundy', 'text-white');
+          btn.classList.add('bg-neutral-900', 'text-neutral-300');
+        }
+      });
+
+      items.forEach(item => {
+        const itemCat = item.getAttribute('data-category');
+        if (category === 'all' || itemCat === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    /* -------------------------------------------------------------
+       7. Feedback Toast & Copy Email (No alert() used)
+       ------------------------------------------------------------- */
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `px-5 py-3 rounded border text-xs font-mono uppercase tracking-wider shadow-2xl transition-all duration-300 transform translate-y-2 opacity-0 flex items-center gap-3 ${
+        type === 'success' 
+          ? 'bg-neutral-950 border-emerald-500/60 text-emerald-400' 
+          : 'bg-neutral-950 border-burgundy/80 text-white'
+      }`;
+
+      toast.innerHTML = `
+        <span class="w-2 h-2 rounded-full ${type === 'success' ? 'bg-emerald-400' : 'bg-burgundy'}"></span>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 20);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function copyContactEmail() {
+      const email = 'tamilselvan.m.ai@gmail.com';
+      const dummyInput = document.createElement('input');
+      dummyInput.value = email;
+      document.body.appendChild(dummyInput);
+      dummyInput.select();
+      
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          const btnText = document.getElementById('copy-btn-text');
+          if (btnText) btnText.textContent = 'Copied!';
+          showToast('Email address copied to clipboard', 'success');
+          setTimeout(() => {
+            if (btnText) btnText.textContent = 'Copy Email';
+          }, 3000);
+        } else {
+          showToast(`Direct email: ${email}`, 'info');
+        }
+      } catch (err) {
+        showToast(`Direct email: ${email}`, 'info');
+      }
+      document.body.removeChild(dummyInput);
+    }
+
+    /* -------------------------------------------------------------
+       8. Client-Side Form Handler (Direct Mail Dispatch)
+       ------------------------------------------------------------- */
+    function handleFormSubmission(e) {
+      e.preventDefault();
+      const name = document.getElementById('user-name')?.value || '';
+      const email = document.getElementById('user-email')?.value || '';
+      const subject = document.getElementById('user-subject')?.value || 'Portfolio Inquiry';
+      const message = document.getElementById('user-message')?.value || '';
+
+      const recipient = 'tamilselvan.m.ai@gmail.com';
+      const emailBody = `Name: ${name}%0D%0AFrom Email: ${email}%0D%0AInquiry Type: ${subject}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(message)}`;
+      const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject + ' — from ' + name)}&body=${emailBody}`;
+
+      showToast('Opening default email client with your message...', 'success');
+      setTimeout(() => {
+        window.location.href = mailtoUrl;
+      }, 600);
+    }
+
+    /* -------------------------------------------------------------
+       9. Client-Side Complete ZIP Packager for VS Code
+       ------------------------------------------------------------- */
+    async function downloadPortfolioZip() {
+      if (typeof JSZip === 'undefined') {
+        showToast('Initializing ZIP bundler...', 'info');
+        return;
+      }
+
+      showToast('Generating VS Code project ZIP...', 'info');
+      const zip = new JSZip();
+
+      // 1. Get current full HTML file content
+      const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      zip.file("index.html", fullHtml);
+
+      // 2. Comprehensive README for opening in VS Code
+      const readmeContent = 
+      zip.file("README.md", readmeContent);
+
+      // 3. package.json for standard VS Code / Vite / Live Server support
+      const packageJson = {
+        name: "tamilselvan-portfolio",
+        version: "1.0.0",
+        description: "Personal Portfolio of Tamilselvan M - RVCE AI & Data Science",
+        main: "index.html",
+        scripts: {
+          "start": "npx serve .",
+          "dev": "npx serve ."
+        },
+        author: "Tamilselvan M",
+        license: "MIT"
+      };
+      zip.file("package.json", JSON.stringify(packageJson, null, 2));
+
+      // 4. .vscode workspace settings for automatic Live Server configuration
+      const vscodeSettings = {
+        "liveServer.settings.defaultBrowser": "chrome",
+        "liveServer.settings.port": 5500,
+        "editor.formatOnSave": true
+      };
+      zip.folder(".vscode").file("settings.json", JSON.stringify(vscodeSettings, null, 2));
+
+      // 5. Assets directory placeholder
+      zip.folder("assets").folder("images").file("README.txt", "Place your photos (1000194893.jpg and 1000194892.jpg) in the root folder alongside index.html.");
+
+      try {
+        const content = await zip.generateAsync({ type: "blob" });
+        saveAs(content, "tamilselvan-portfolio-project.zip");
+        showToast("ZIP downloaded! Extract and open in VS Code.", "success");
+      } catch (err) {
+        showToast("Error generating ZIP. Please try again.", "info");
+      }
+    }
+
+    /* -------------------------------------------------------------
+       10. Mobile Drawer Toggle
+       ------------------------------------------------------------- */
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (menuToggle && mobileDrawer) {
+      menuToggle.addEventListener('click', () => {
+        const isHidden = mobileDrawer.classList.contains('hidden');
+        if (isHidden) {
+          mobileDrawer.classList.remove('hidden');
+          if (window.lucide) {
+            menuToggle.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
+            lucide.createIcons();
+          }
+        } else {
+          mobileDrawer.classList.add('hidden');
+          if (window.lucide) {
+            menuToggle.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+            lucide.createIcons();
+          }
+        }
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileDrawer.classList.add('hidden');
+          if (window.lucide) {
+            menuToggle.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+            lucide.createIcons();
+          }
+        });
+      });
+    }
+
+    /* -------------------------------------------------------------
+       10. Lifecycle Initiation on Window Load
+       ------------------------------------------------------------- */
+    window.onload = function() {
+      initThreeScene();
+      animate();
+      bindCursorHovers();
+      bind3DCardInteractions();
+      runSplashSequence();
+    };
+  </script>
+
+
+</body>
+</html>
